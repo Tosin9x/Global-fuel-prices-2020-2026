@@ -48,7 +48,7 @@ ORDER BY petrol_price DESC
 LIMIT 5;
 
 
--- country with the cheapest petrol prices and their levels of income
+-- countries with the cheapest petrol prices and their levels of income
 
 SELECT 
     global_fuel_tb.country AS country,
@@ -87,12 +87,29 @@ ORDER BY petrol_price_usd ASC
 LIMIT 10;
 
 
--- Global price of petrol over the years
+-- Global price of petrol over the years in relation to brent crude
 
 SELECT 
    YEAR(global_fuel_tb.date) AS year,
-   ROUND(AVG(global_fuel_tb.petrol_usD_litre), 3) AS avg_petrol_price
+   ROUND(AVG(global_fuel_tb.petrol_usD_litre), 3) AS avg_petrol_price,
+   ROUND(AVG(global_fuel_tb.brent_crude_usd_litre), 3) AS crude_price
 FROM global_fuel_tb
 GROUP BY year
-ORDER BY year ASC;
+ORDER BY year ASC; 
+
+
+
+--Impact of high subsidy level on the price of fuel 
+
+SELECT 
+    global_fuel_tb.country AS country,
+    global_fuel_tb.subsidy_level AS subsidy,
+    global_fuel_tb.income_level AS income_level,
+    AVG(global_fuel_tb.petrol_usD_litre) AS petrol_usd
+FROM
+    global_fuel_tb
+
+GROUP BY country, subsidy, income_level
+HAVING subsidy IN('High', 'very High')
+ORDER BY petrol_usd DESC;
 
