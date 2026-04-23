@@ -113,3 +113,17 @@ GROUP BY country, subsidy, income_level
 HAVING subsidy IN('High', 'very High')
 ORDER BY petrol_usd DESC;
 
+
+-- impact of tax on the price of petrol
+
+SELECT 
+    global_fuel_tb.country AS country,
+     AVG(global_fuel_tb.tax_percentage)AS tax,
+    AVG(global_fuel_tb.petrol_usD_litre) AS petrol_price
+FROM
+    global_fuel_tb
+GROUP BY country
+ORDER BY petrol_price;
+
+
+-- 
