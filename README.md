@@ -1,1 +1,1 @@
-TO be continued...i will update soon.
+Global fuel prices 2020 - 2026
